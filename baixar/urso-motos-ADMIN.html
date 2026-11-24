@@ -161,6 +161,135 @@ img { display: block; }
   .stats b { font-size: 1.6rem; }
 }
 
+/* ---------- Moto animada ---------- */
+:root { --wa: #25d366; --wa-2: #1ebe5b; }
+.moto { width: 150px; height: 75px; overflow: visible; }
+.moto__wheel circle { fill: none; stroke: var(--white); stroke-width: 5; }
+.moto__wheel path { stroke: var(--mute); stroke-width: 1.5; }
+.moto__wheel { animation: spin .35s linear infinite; }
+.moto__body { fill: var(--red); }
+.moto__rider { fill: none; stroke: #d4d4da; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.moto__helmet { fill: var(--red); stroke: var(--white); stroke-width: 2; }
+.moto__visor { fill: #111; }
+.moto__frame { stroke: #8a8a94; stroke-width: 5; stroke-linecap: round; }
+.moto__engine { fill: #3a3a44; }
+.moto__tail { fill: var(--white); }
+.moto__exhaust { stroke: var(--mute); stroke-width: 4; stroke-linecap: round; }
+.moto__speed line { stroke: var(--white); stroke-width: 2.5; stroke-linecap: round; opacity: .6; animation: speed .4s linear infinite; }
+.moto__speed line:nth-child(2) { animation-delay: .12s; }
+.moto__speed line:nth-child(3) { animation-delay: .25s; }
+.moto--red .moto__body { fill: var(--white); }
+.moto--red .moto__tail { fill: var(--red); }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes speed { 0% { transform: translateX(10px); opacity: .7; } 100% { transform: translateX(-30px); opacity: 0; } }
+
+.road { position: relative; height: 92px; margin-bottom: .5rem; overflow: hidden; }
+.road__lane { position: absolute; left: 0; right: 0; bottom: 10px; height: 4px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 40px, transparent 40px 80px); animation: lane .5s linear infinite; }
+.road::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }
+@keyframes lane { to { background-position: -80px 0; } }
+.road__rider { position: absolute; bottom: 12px; left: 0; animation: ride 7s cubic-bezier(.5, 0, .5, 1) infinite; }
+.road__rider .moto { animation: bounce .3s ease-in-out infinite alternate; }
+@keyframes ride {
+  0% { transform: translateX(-200px); }
+  45% { transform: translateX(calc(50vw - 75px)); }
+  55% { transform: translateX(calc(50vw - 55px)); }
+  100% { transform: translateX(calc(100vw + 60px)); }
+}
+@keyframes bounce { to { transform: translateY(-2px) rotate(-1deg); } }
+
+.pass { position: relative; height: 110px; overflow: hidden; background: linear-gradient(var(--black), var(--ink)); }
+.pass__line { position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); opacity: .5; }
+.pass__rider { position: absolute; top: 18px; left: 0; transform: translateX(-220px); }
+.pass.go .pass__rider { animation: zoom 1.6s cubic-bezier(.6, 0, .3, 1) forwards; }
+.pass.go .pass__line { animation: flash 1.6s ease forwards; }
+@keyframes zoom { 0% { transform: translateX(-220px) skewX(0); } 50% { transform: translateX(50vw) skewX(-8deg); } 100% { transform: translateX(calc(100vw + 220px)) skewX(-12deg); } }
+@keyframes flash { 40% { opacity: 1; height: 4px; } 100% { opacity: .3; } }
+
+/* ---------- Peças: ações ---------- */
+.part { opacity: 0; transform: translateY(14px); animation: rise .5s var(--d, 0ms) forwards; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+.part__price small { display: block; color: var(--mute); font-size: .72rem; }
+.part__price b { font-size: 1.45rem; }
+.part__acts { display: flex; gap: .6rem; align-items: stretch; }
+.part__acts .btn { flex: 1; }
+.part .in-txt { display: none; }
+.part.in-cart { border-color: var(--red); box-shadow: 0 0 0 1px var(--red) inset; }
+.part.in-cart .add-txt { display: none; }
+.part.in-cart .in-txt { display: inline; }
+.part.in-cart .btn--red { background: var(--white); color: var(--black); box-shadow: none; }
+.wa-ico { width: 22px; height: 22px; display: block; }
+.wa-btn { flex: 0 0 auto; width: 46px; display: grid; place-items: center; border-radius: 999px; background: var(--wa); color: #fff; transition: .2s; box-shadow: 0 8px 22px -10px var(--wa); }
+.wa-btn:hover { background: var(--wa-2); transform: translateY(-2px) scale(1.05); }
+.wa-inline { color: var(--wa); font-weight: 600; }
+
+/* ---------- Botão flutuante + badge ---------- */
+.badge { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--red); color: #fff; font-size: .72rem; font-weight: 800; }
+.nav__cart { display: inline-flex; align-items: center; gap: .4rem; }
+.fab { position: fixed; right: 20px; bottom: 20px; z-index: 60; width: 62px; height: 62px; border-radius: 50%; background: var(--wa); color: #fff; display: grid; place-items: center; box-shadow: 0 14px 30px -8px rgba(37, 211, 102, .6); transition: .2s; }
+.fab .wa-ico { width: 32px; height: 32px; }
+.fab:hover { transform: scale(1.07); }
+.fab::before { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--wa); animation: ring 2s infinite; }
+@keyframes ring { to { transform: scale(1.6); opacity: 0; } }
+.fab .badge { position: absolute; top: -4px; right: -4px; border: 2px solid var(--black); }
+.bump { animation: bump .45s ease; }
+@keyframes bump { 40% { transform: scale(1.25); } }
+
+/* ---------- Gaveta do pedido ---------- */
+.cart-scrim { position: fixed; inset: 0; background: rgba(0, 0, 0, .6); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: .3s; z-index: 90; }
+.cart { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100%); z-index: 95; background: var(--ink); border-left: 1px solid var(--line); display: flex; flex-direction: column; transform: translateX(105%); transition: transform .4s cubic-bezier(.2, .8, .2, 1); }
+.cart-open .cart { transform: none; }
+.cart-open .cart-scrim { opacity: 1; pointer-events: auto; }
+.cart-open { overflow: hidden; }
+.cart-open .fab { opacity: 0; pointer-events: none; }
+.cart__head { display: flex; justify-content: space-between; align-items: start; padding: 1.4rem 1.4rem 1rem; border-bottom: 1px solid var(--line); background: linear-gradient(135deg, rgba(225, 6, 0, .25), transparent 60%); }
+.cart__head .eyebrow { margin-bottom: .3rem; }
+.cart__head h2 { font-family: var(--display); font-weight: 400; font-size: 2rem; text-transform: uppercase; line-height: 1; }
+.cart__x { background: none; border: 1px solid var(--line); color: var(--white); width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1rem; }
+.cart__x:hover { border-color: var(--white); }
+.cart__body { flex: 1; overflow-y: auto; padding: 1rem 1.4rem; }
+.cart__list { list-style: none; display: grid; gap: .6rem; margin-bottom: 1.2rem; }
+.ci { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "info rm" "qty sub"; gap: .6rem; padding: .9rem; border: 1px solid var(--line); border-radius: 12px; background: var(--black); animation: rise .3s forwards; }
+.ci__info { grid-area: info; }
+.ci__info b { display: block; font-size: .95rem; }
+.ci__info small { color: var(--mute); font-size: .78rem; }
+.ci__rm { grid-area: rm; background: none; border: 0; color: var(--mute); cursor: pointer; align-self: start; }
+.ci__rm:hover { color: var(--red-2); }
+.ci__sub { grid-area: sub; align-self: center; }
+.qty { grid-area: qty; display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; width: max-content; }
+.qty button { background: none; border: 0; color: var(--white); width: 34px; height: 32px; font-size: 1.1rem; cursor: pointer; }
+.qty button:hover { color: var(--red); }
+.qty span { min-width: 24px; text-align: center; font-weight: 700; }
+.cart__empty { text-align: center; padding: 3rem 1rem; color: var(--mute); display: grid; gap: 1rem; justify-items: center; }
+.cart__emptyIco { font-size: 3rem; animation: bounce .6s ease-in-out infinite alternate; }
+.cart__form { display: grid; gap: .9rem; }
+.cart__form label { display: grid; gap: .35rem; font-size: .85rem; color: var(--mute); }
+.cart__form input, .cart__form textarea { font: inherit; color: var(--white); background: var(--black); border: 1px solid var(--line); border-radius: 10px; padding: .7rem .9rem; width: 100%; resize: vertical; }
+.cart__form input:focus, .cart__form textarea:focus { outline: 2px solid var(--red); border-color: transparent; }
+.steps { display: flex; gap: .4rem; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; }
+.steps span { flex: 1; text-align: center; padding: .45rem .2rem; border-radius: 6px; background: var(--black); color: var(--mute); border-bottom: 2px solid var(--line); }
+.steps span.on { color: var(--white); border-bottom-color: var(--red); }
+.cart__opts { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.opt { cursor: pointer; }
+.opt input { position: absolute; opacity: 0; pointer-events: none; }
+.opt span { display: block; text-align: center; padding: .7rem .4rem; border: 1px solid var(--line); border-radius: 10px; color: var(--white); font-weight: 600; font-size: .85rem; transition: .2s; }
+.opt input:checked + span { border-color: var(--red); background: rgba(225, 6, 0, .15); }
+.opt input:focus-visible + span { outline: 2px solid var(--white); }
+.cart__foot { border-top: 1px solid var(--line); padding: 1.1rem 1.4rem 1.4rem; display: grid; gap: .8rem; background: var(--black); }
+.cart__total { display: flex; justify-content: space-between; align-items: baseline; }
+.cart__total span { color: var(--mute); }
+.cart__total b { font-family: var(--display); font-weight: 400; font-size: 1.9rem; }
+.btn--wa { background: var(--wa); color: #fff; width: 100%; font-size: 1rem; box-shadow: 0 12px 28px -12px rgba(37, 211, 102, .7); }
+.btn--wa:hover:not(:disabled) { background: var(--wa-2); transform: translateY(-2px); }
+.btn--wa:disabled { opacity: .4; cursor: not-allowed; }
+.cart__foot .muted { color: var(--mute); font-size: .75rem; text-align: center; }
+.toast { position: fixed; bottom: 96px; left: 50%; transform: translate(-50%, 200px); background: var(--white); color: var(--black); padding: .8rem 1.4rem; border-radius: 999px; font-weight: 600; transition: .3s; z-index: 100; max-width: calc(100% - 32px); text-align: center; }
+.toast.show { transform: translate(-50%, 0); }
+
+@media (max-width: 860px) {
+  .moto { width: 110px; height: 55px; }
+  .road { height: 72px; }
+}
+
 /* ================= ADMIN ================= */
 .admin .muted { color: var(--mute); font-size: .88rem; }
 .err { color: var(--red-2); }
@@ -232,8 +361,8 @@ input[type=date] { color-scheme: dark; }
 .seg input:checked + span { background: var(--red); border-color: var(--red); }
 .seg input:focus-visible + span { outline: 2px solid var(--white); }
 
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 120px); background: var(--white); color: var(--black); padding: .8rem 1.4rem; border-radius: 999px; font-weight: 600; transition: .3s; z-index: 100; max-width: calc(100% - 32px); text-align: center; }
-.toast.show { transform: translate(-50%, 0); }
+.admin .toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 120px); background: var(--white); color: var(--black); padding: .8rem 1.4rem; border-radius: 999px; font-weight: 600; transition: .3s; z-index: 100; max-width: calc(100% - 32px); text-align: center; }
+.admin .toast.show { transform: translate(-50%, 0); }
 
 @media (max-width: 860px) {
   .app { grid-template-columns: 1fr; }
@@ -246,7 +375,7 @@ input[type=date] { color-scheme: dark; }
   .seg { grid-template-columns: 1fr; }
   .panel { padding: 1.5rem 16px; }
 }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .g-fill { stroke-dasharray: 520 817; } .g-needle { transform: rotate(92deg); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .g-fill { stroke-dasharray: 520 817; } .g-needle { transform: rotate(92deg); } .part { opacity: 1; transform: none; } .road__rider { left: 40%; } }
 
 </style>
 </head>
@@ -376,7 +505,7 @@ input[type=date] { color-scheme: dark; }
     <section class="tab" id="tab-cfg" hidden>
       <h2>Configurações</h2>
       <form class="box form" id="cfgForm">
-        <label>WhatsApp da loja (com DDD) <input name="whatsapp" placeholder="11 99999-9999"></label>
+        <label>WhatsApp da loja (com DDD) <input name="whatsapp" placeholder="Vazio = usa (11) 2403-2745"></label>
         <label>Nova senha do painel <input type="password" name="password" placeholder="Deixe em branco para manter" autocomplete="new-password"></label>
         <div class="form__foot"><button class="btn btn--red">Salvar</button></div>
       </form>

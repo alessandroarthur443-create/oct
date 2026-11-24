@@ -161,6 +161,135 @@ img { display: block; }
   .stats b { font-size: 1.6rem; }
 }
 
+/* ---------- Moto animada ---------- */
+:root { --wa: #25d366; --wa-2: #1ebe5b; }
+.moto { width: 150px; height: 75px; overflow: visible; }
+.moto__wheel circle { fill: none; stroke: var(--white); stroke-width: 5; }
+.moto__wheel path { stroke: var(--mute); stroke-width: 1.5; }
+.moto__wheel { animation: spin .35s linear infinite; }
+.moto__body { fill: var(--red); }
+.moto__rider { fill: none; stroke: #d4d4da; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.moto__helmet { fill: var(--red); stroke: var(--white); stroke-width: 2; }
+.moto__visor { fill: #111; }
+.moto__frame { stroke: #8a8a94; stroke-width: 5; stroke-linecap: round; }
+.moto__engine { fill: #3a3a44; }
+.moto__tail { fill: var(--white); }
+.moto__exhaust { stroke: var(--mute); stroke-width: 4; stroke-linecap: round; }
+.moto__speed line { stroke: var(--white); stroke-width: 2.5; stroke-linecap: round; opacity: .6; animation: speed .4s linear infinite; }
+.moto__speed line:nth-child(2) { animation-delay: .12s; }
+.moto__speed line:nth-child(3) { animation-delay: .25s; }
+.moto--red .moto__body { fill: var(--white); }
+.moto--red .moto__tail { fill: var(--red); }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes speed { 0% { transform: translateX(10px); opacity: .7; } 100% { transform: translateX(-30px); opacity: 0; } }
+
+.road { position: relative; height: 92px; margin-bottom: .5rem; overflow: hidden; }
+.road__lane { position: absolute; left: 0; right: 0; bottom: 10px; height: 4px; background: repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 40px, transparent 40px 80px); animation: lane .5s linear infinite; }
+.road::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--line); }
+@keyframes lane { to { background-position: -80px 0; } }
+.road__rider { position: absolute; bottom: 12px; left: 0; animation: ride 7s cubic-bezier(.5, 0, .5, 1) infinite; }
+.road__rider .moto { animation: bounce .3s ease-in-out infinite alternate; }
+@keyframes ride {
+  0% { transform: translateX(-200px); }
+  45% { transform: translateX(calc(50vw - 75px)); }
+  55% { transform: translateX(calc(50vw - 55px)); }
+  100% { transform: translateX(calc(100vw + 60px)); }
+}
+@keyframes bounce { to { transform: translateY(-2px) rotate(-1deg); } }
+
+.pass { position: relative; height: 110px; overflow: hidden; background: linear-gradient(var(--black), var(--ink)); }
+.pass__line { position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); opacity: .5; }
+.pass__rider { position: absolute; top: 18px; left: 0; transform: translateX(-220px); }
+.pass.go .pass__rider { animation: zoom 1.6s cubic-bezier(.6, 0, .3, 1) forwards; }
+.pass.go .pass__line { animation: flash 1.6s ease forwards; }
+@keyframes zoom { 0% { transform: translateX(-220px) skewX(0); } 50% { transform: translateX(50vw) skewX(-8deg); } 100% { transform: translateX(calc(100vw + 220px)) skewX(-12deg); } }
+@keyframes flash { 40% { opacity: 1; height: 4px; } 100% { opacity: .3; } }
+
+/* ---------- Peças: ações ---------- */
+.part { opacity: 0; transform: translateY(14px); animation: rise .5s var(--d, 0ms) forwards; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+.part__price small { display: block; color: var(--mute); font-size: .72rem; }
+.part__price b { font-size: 1.45rem; }
+.part__acts { display: flex; gap: .6rem; align-items: stretch; }
+.part__acts .btn { flex: 1; }
+.part .in-txt { display: none; }
+.part.in-cart { border-color: var(--red); box-shadow: 0 0 0 1px var(--red) inset; }
+.part.in-cart .add-txt { display: none; }
+.part.in-cart .in-txt { display: inline; }
+.part.in-cart .btn--red { background: var(--white); color: var(--black); box-shadow: none; }
+.wa-ico { width: 22px; height: 22px; display: block; }
+.wa-btn { flex: 0 0 auto; width: 46px; display: grid; place-items: center; border-radius: 999px; background: var(--wa); color: #fff; transition: .2s; box-shadow: 0 8px 22px -10px var(--wa); }
+.wa-btn:hover { background: var(--wa-2); transform: translateY(-2px) scale(1.05); }
+.wa-inline { color: var(--wa); font-weight: 600; }
+
+/* ---------- Botão flutuante + badge ---------- */
+.badge { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--red); color: #fff; font-size: .72rem; font-weight: 800; }
+.nav__cart { display: inline-flex; align-items: center; gap: .4rem; }
+.fab { position: fixed; right: 20px; bottom: 20px; z-index: 60; width: 62px; height: 62px; border-radius: 50%; background: var(--wa); color: #fff; display: grid; place-items: center; box-shadow: 0 14px 30px -8px rgba(37, 211, 102, .6); transition: .2s; }
+.fab .wa-ico { width: 32px; height: 32px; }
+.fab:hover { transform: scale(1.07); }
+.fab::before { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--wa); animation: ring 2s infinite; }
+@keyframes ring { to { transform: scale(1.6); opacity: 0; } }
+.fab .badge { position: absolute; top: -4px; right: -4px; border: 2px solid var(--black); }
+.bump { animation: bump .45s ease; }
+@keyframes bump { 40% { transform: scale(1.25); } }
+
+/* ---------- Gaveta do pedido ---------- */
+.cart-scrim { position: fixed; inset: 0; background: rgba(0, 0, 0, .6); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: .3s; z-index: 90; }
+.cart { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100%); z-index: 95; background: var(--ink); border-left: 1px solid var(--line); display: flex; flex-direction: column; transform: translateX(105%); transition: transform .4s cubic-bezier(.2, .8, .2, 1); }
+.cart-open .cart { transform: none; }
+.cart-open .cart-scrim { opacity: 1; pointer-events: auto; }
+.cart-open { overflow: hidden; }
+.cart-open .fab { opacity: 0; pointer-events: none; }
+.cart__head { display: flex; justify-content: space-between; align-items: start; padding: 1.4rem 1.4rem 1rem; border-bottom: 1px solid var(--line); background: linear-gradient(135deg, rgba(225, 6, 0, .25), transparent 60%); }
+.cart__head .eyebrow { margin-bottom: .3rem; }
+.cart__head h2 { font-family: var(--display); font-weight: 400; font-size: 2rem; text-transform: uppercase; line-height: 1; }
+.cart__x { background: none; border: 1px solid var(--line); color: var(--white); width: 38px; height: 38px; border-radius: 50%; cursor: pointer; font-size: 1rem; }
+.cart__x:hover { border-color: var(--white); }
+.cart__body { flex: 1; overflow-y: auto; padding: 1rem 1.4rem; }
+.cart__list { list-style: none; display: grid; gap: .6rem; margin-bottom: 1.2rem; }
+.ci { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "info rm" "qty sub"; gap: .6rem; padding: .9rem; border: 1px solid var(--line); border-radius: 12px; background: var(--black); animation: rise .3s forwards; }
+.ci__info { grid-area: info; }
+.ci__info b { display: block; font-size: .95rem; }
+.ci__info small { color: var(--mute); font-size: .78rem; }
+.ci__rm { grid-area: rm; background: none; border: 0; color: var(--mute); cursor: pointer; align-self: start; }
+.ci__rm:hover { color: var(--red-2); }
+.ci__sub { grid-area: sub; align-self: center; }
+.qty { grid-area: qty; display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 999px; width: max-content; }
+.qty button { background: none; border: 0; color: var(--white); width: 34px; height: 32px; font-size: 1.1rem; cursor: pointer; }
+.qty button:hover { color: var(--red); }
+.qty span { min-width: 24px; text-align: center; font-weight: 700; }
+.cart__empty { text-align: center; padding: 3rem 1rem; color: var(--mute); display: grid; gap: 1rem; justify-items: center; }
+.cart__emptyIco { font-size: 3rem; animation: bounce .6s ease-in-out infinite alternate; }
+.cart__form { display: grid; gap: .9rem; }
+.cart__form label { display: grid; gap: .35rem; font-size: .85rem; color: var(--mute); }
+.cart__form input, .cart__form textarea { font: inherit; color: var(--white); background: var(--black); border: 1px solid var(--line); border-radius: 10px; padding: .7rem .9rem; width: 100%; resize: vertical; }
+.cart__form input:focus, .cart__form textarea:focus { outline: 2px solid var(--red); border-color: transparent; }
+.steps { display: flex; gap: .4rem; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; }
+.steps span { flex: 1; text-align: center; padding: .45rem .2rem; border-radius: 6px; background: var(--black); color: var(--mute); border-bottom: 2px solid var(--line); }
+.steps span.on { color: var(--white); border-bottom-color: var(--red); }
+.cart__opts { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.opt { cursor: pointer; }
+.opt input { position: absolute; opacity: 0; pointer-events: none; }
+.opt span { display: block; text-align: center; padding: .7rem .4rem; border: 1px solid var(--line); border-radius: 10px; color: var(--white); font-weight: 600; font-size: .85rem; transition: .2s; }
+.opt input:checked + span { border-color: var(--red); background: rgba(225, 6, 0, .15); }
+.opt input:focus-visible + span { outline: 2px solid var(--white); }
+.cart__foot { border-top: 1px solid var(--line); padding: 1.1rem 1.4rem 1.4rem; display: grid; gap: .8rem; background: var(--black); }
+.cart__total { display: flex; justify-content: space-between; align-items: baseline; }
+.cart__total span { color: var(--mute); }
+.cart__total b { font-family: var(--display); font-weight: 400; font-size: 1.9rem; }
+.btn--wa { background: var(--wa); color: #fff; width: 100%; font-size: 1rem; box-shadow: 0 12px 28px -12px rgba(37, 211, 102, .7); }
+.btn--wa:hover:not(:disabled) { background: var(--wa-2); transform: translateY(-2px); }
+.btn--wa:disabled { opacity: .4; cursor: not-allowed; }
+.cart__foot .muted { color: var(--mute); font-size: .75rem; text-align: center; }
+.toast { position: fixed; bottom: 96px; left: 50%; transform: translate(-50%, 200px); background: var(--white); color: var(--black); padding: .8rem 1.4rem; border-radius: 999px; font-weight: 600; transition: .3s; z-index: 100; max-width: calc(100% - 32px); text-align: center; }
+.toast.show { transform: translate(-50%, 0); }
+
+@media (max-width: 860px) {
+  .moto { width: 110px; height: 55px; }
+  .road { height: 72px; }
+}
+
 /* ================= ADMIN ================= */
 .admin .muted { color: var(--mute); font-size: .88rem; }
 .err { color: var(--red-2); }
@@ -232,8 +361,8 @@ input[type=date] { color-scheme: dark; }
 .seg input:checked + span { background: var(--red); border-color: var(--red); }
 .seg input:focus-visible + span { outline: 2px solid var(--white); }
 
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 120px); background: var(--white); color: var(--black); padding: .8rem 1.4rem; border-radius: 999px; font-weight: 600; transition: .3s; z-index: 100; max-width: calc(100% - 32px); text-align: center; }
-.toast.show { transform: translate(-50%, 0); }
+.admin .toast { position: fixed; bottom: 24px; left: 50%; transform: translate(-50%, 120px); background: var(--white); color: var(--black); padding: .8rem 1.4rem; border-radius: 999px; font-weight: 600; transition: .3s; z-index: 100; max-width: calc(100% - 32px); text-align: center; }
+.admin .toast.show { transform: translate(-50%, 0); }
 
 @media (max-width: 860px) {
   .app { grid-template-columns: 1fr; }
@@ -246,7 +375,7 @@ input[type=date] { color-scheme: dark; }
   .seg { grid-template-columns: 1fr; }
   .panel { padding: 1.5rem 16px; }
 }
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .g-fill { stroke-dasharray: 520 817; } .g-needle { transform: rotate(92deg); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .g-fill { stroke-dasharray: 520 817; } .g-needle { transform: rotate(92deg); } .part { opacity: 1; transform: none; } .road__rider { left: 40%; } }
 
 </style>
 </head>
@@ -266,6 +395,7 @@ input[type=date] { color-scheme: dark; }
       <a href="#pecas">Peças</a>
       <a href="#sobre">Sobre</a>
       <a href="#contato">Contato</a>
+      <a href="#" class="nav__cart" data-open-cart>Pedido <span class="badge" data-count>0</span></a>
       <a href="urso-motos-ADMIN.html" class="nav__admin">Admin</a>
     </nav>
   </div>
@@ -299,6 +429,24 @@ input[type=date] { color-scheme: dark; }
           <circle cx="150" cy="150" r="10" fill="#e10600"/>
           <text x="150" y="215" text-anchor="middle" class="g-num">29</text>
           <text x="150" y="238" text-anchor="middle" class="g-lbl">ANOS NA ESTRADA</text>
+        </svg>
+      </div>
+    </div>
+    <div class="road" aria-hidden="true">
+      <div class="road__lane"></div>
+      <div class="road__rider">
+        <svg class="moto" viewBox="0 0 160 80" aria-hidden="true">
+          <g class="moto__speed"><line x1="-40" y1="30" x2="-6" y2="30"/><line x1="-60" y1="44" x2="-14" y2="44"/><line x1="-34" y1="58" x2="-4" y2="58"/></g>
+          <path class="moto__frame" d="M32 60L70 48M128 60L114 24"/>
+          <g class="moto__wheel" style="transform-origin:32px 60px"><circle cx="32" cy="60" r="16"/><path d="M32 46v28M18 60h28M22 50l20 20M42 50L22 70"/></g>
+          <g class="moto__wheel" style="transform-origin:128px 60px"><circle cx="128" cy="60" r="16"/><path d="M128 46v28M114 60h28M118 50l20 20M138 50l-20 20"/></g>
+          <rect class="moto__engine" x="68" y="40" width="26" height="14" rx="3"/>
+          <path class="moto__exhaust" d="M70 54H42"/>
+          <path class="moto__tail" d="M64 36L30 28l6-4 34 6z"/>
+          <path class="moto__body" d="M62 44l10-16 30-4 16-4 14 8-8 10-18 4-10 8H64z"/>
+          <path class="moto__rider" d="M68 28l24-14M92 14l18 10M70 30l16 8-8 12"/>
+          <circle class="moto__helmet" cx="100" cy="10" r="8"/>
+          <path class="moto__visor" d="M102 7h6v5h-5z"/>
         </svg>
       </div>
     </div>
@@ -359,7 +507,7 @@ input[type=date] { color-scheme: dark; }
       <header class="sec-head">
         <span class="sec-num">02</span>
         <h2>Peças disponíveis</h2>
-        <p>Estoque atualizado pela oficina. Consulte disponibilidade e instalação.</p>
+        <p>Monte seu pedido e envie direto pelo WhatsApp. Ou toque no <span class="wa-inline">ícone verde</span> para pedir uma peça na hora.</p>
       </header>
       <div class="filters">
         <input type="search" id="q" placeholder="Buscar peça…" aria-label="Buscar peça">
@@ -369,6 +517,23 @@ input[type=date] { color-scheme: dark; }
       <p class="empty" id="partsEmpty" hidden>Nenhuma peça encontrada. Ligue para consultar — temos mais itens na loja.</p>
     </div>
   </section>
+
+  <div class="pass" aria-hidden="true">
+    <div class="pass__line"></div>
+    <div class="pass__rider"><svg class="moto moto--red" viewBox="0 0 160 80" aria-hidden="true">
+          <g class="moto__speed"><line x1="-40" y1="30" x2="-6" y2="30"/><line x1="-60" y1="44" x2="-14" y2="44"/><line x1="-34" y1="58" x2="-4" y2="58"/></g>
+          <path class="moto__frame" d="M32 60L70 48M128 60L114 24"/>
+          <g class="moto__wheel" style="transform-origin:32px 60px"><circle cx="32" cy="60" r="16"/><path d="M32 46v28M18 60h28M22 50l20 20M42 50L22 70"/></g>
+          <g class="moto__wheel" style="transform-origin:128px 60px"><circle cx="128" cy="60" r="16"/><path d="M128 46v28M114 60h28M118 50l20 20M138 50l-20 20"/></g>
+          <rect class="moto__engine" x="68" y="40" width="26" height="14" rx="3"/>
+          <path class="moto__exhaust" d="M70 54H42"/>
+          <path class="moto__tail" d="M64 36L30 28l6-4 34 6z"/>
+          <path class="moto__body" d="M62 44l10-16 30-4 16-4 14 8-8 10-18 4-10 8H64z"/>
+          <path class="moto__rider" d="M68 28l24-14M92 14l18 10M70 30l16 8-8 12"/>
+          <circle class="moto__helmet" cx="100" cy="10" r="8"/>
+          <path class="moto__visor" d="M102 7h6v5h-5z"/>
+        </svg></div>
+  </div>
 
   <!-- SOBRE -->
   <section class="section" id="sobre">
@@ -416,6 +581,54 @@ input[type=date] { color-scheme: dark; }
     <a href="#top">Voltar ao topo ↑</a>
   </div>
 </footer>
+
+
+<!-- CARRINHO / PEDIDO -->
+<div class="cart-scrim" data-close-cart></div>
+<aside class="cart" id="cart" aria-label="Seu pedido" aria-hidden="true">
+  <header class="cart__head">
+    <div>
+      <span class="eyebrow">Pedido de peças</span>
+      <h2>Seu pedido</h2>
+    </div>
+    <button class="cart__x" data-close-cart aria-label="Fechar">✕</button>
+  </header>
+  <div class="cart__body">
+    <ul class="cart__list" id="cartList"></ul>
+    <div class="cart__empty" id="cartEmpty">
+      <div class="cart__emptyIco">🏍️</div>
+      <p>Seu pedido está vazio.</p>
+      <a href="#pecas" class="btn btn--ghost btn--sm" data-close-cart>Escolher peças</a>
+    </div>
+    <form class="cart__form" id="orderForm">
+      <div class="steps"><span class="on">1. Peças</span><span>2. Seus dados</span><span>3. WhatsApp</span></div>
+      <label>Seu nome <input name="nome" required placeholder="Como podemos te chamar?"></label>
+      <label>Moto / modelo / ano <input name="moto" placeholder="Ex.: Honda CG 160 Fan 2020"></label>
+      <div class="cart__opts">
+        <label class="opt"><input type="radio" name="entrega" value="Retirar na loja" checked><span>Retirar na loja</span></label>
+        <label class="opt"><input type="radio" name="entrega" value="Instalar na oficina"><span>Instalar na oficina</span></label>
+      </div>
+      <label>Observação <textarea name="obs" rows="2" placeholder="Cor, medida, urgência…"></textarea></label>
+    </form>
+  </div>
+  <footer class="cart__foot">
+    <div class="cart__total"><span>Total estimado</span><b id="cartTotal">R$ 0,00</b></div>
+    <button class="btn btn--wa" id="sendOrder" form="orderForm" type="submit">
+      <svg viewBox="0 0 32 32" class="wa-ico"><use href="#wa"/></svg> Enviar pedido no WhatsApp
+    </button>
+    <small class="muted">Valores sujeitos a confirmação de estoque pela oficina.</small>
+  </footer>
+</aside>
+
+<a class="fab" href="#" data-open-cart aria-label="Abrir pedido">
+  <svg viewBox="0 0 32 32" class="wa-ico"><use href="#wa"/></svg>
+  <span class="badge" data-count>0</span>
+</a>
+<div class="toast" id="toast"></div>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="wa" viewBox="0 0 32 32"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.8-1.6l-.4-.3-3.8 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9C5.1 9.9 10 5.2 16 5.2s10.9 4.8 10.9 10.6S22 26.4 16 26.4zm6-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.6 4.9.8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></symbol>
+</svg>
 
 <script>
 /* Armazenamento local do estoque Urso Motos.
@@ -479,76 +692,159 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 <script>
 (() => {
   const db = Store.load();
-  document.getElementById('yr').textContent = new Date().getFullYear();
+  const $ = (s) => document.querySelector(s);
+  $('#yr').textContent = new Date().getFullYear();
 
-  // Menu mobile
-  const toggle = document.querySelector('.nav__toggle');
-  const links = document.querySelector('.nav__links');
-  toggle.addEventListener('click', () => {
-    const open = links.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open);
-  });
-  links.addEventListener('click', (e) => { if (e.target.tagName === 'A') links.classList.remove('open'); });
-
-  // Header ao rolar
-  const nav = document.querySelector('.nav');
+  // ---------- Menu mobile / header ----------
+  const toggle = $('.nav__toggle'), links = $('.nav__links'), nav = $('.nav');
+  toggle.addEventListener('click', () => toggle.setAttribute('aria-expanded', links.classList.toggle('open')));
+  links.addEventListener('click', (e) => { if (e.target.closest('a')) links.classList.remove('open'); });
   addEventListener('scroll', () => nav.classList.toggle('nav--solid', scrollY > 30), { passive: true });
 
-  // Marcas do velocímetro
-  const ticks = document.querySelector('.g-ticks');
-  if (ticks) {
-    for (let i = 0; i <= 20; i++) {
-      const a = (-225 + i * 13.5) * Math.PI / 180;
-      const r1 = i % 5 === 0 ? 100 : 108, r2 = 116;
-      const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      l.setAttribute('x1', 150 + r1 * Math.cos(a)); l.setAttribute('y1', 150 + r1 * Math.sin(a));
-      l.setAttribute('x2', 150 + r2 * Math.cos(a)); l.setAttribute('y2', 150 + r2 * Math.sin(a));
-      if (i >= 16) l.setAttribute('class', 'hot');
-      ticks.appendChild(l);
-    }
+  // ---------- Velocímetro ----------
+  const ticks = $('.g-ticks');
+  for (let i = 0; i <= 20; i++) {
+    const a = (-225 + i * 13.5) * Math.PI / 180, r1 = i % 5 === 0 ? 100 : 108, r2 = 116;
+    const l = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    l.setAttribute('x1', 150 + r1 * Math.cos(a)); l.setAttribute('y1', 150 + r1 * Math.sin(a));
+    l.setAttribute('x2', 150 + r2 * Math.cos(a)); l.setAttribute('y2', 150 + r2 * Math.sin(a));
+    if (i >= 16) l.setAttribute('class', 'hot');
+    ticks.appendChild(l);
   }
 
-  // WhatsApp (configurado no painel)
-  const wa = (db.settings.whatsapp || '').replace(/\D/g, '');
-  const waUrl = (msg) => `https://wa.me/${wa.startsWith('55') ? wa : '55' + wa}?text=${encodeURIComponent(msg)}`;
-  if (wa) {
-    const w = document.getElementById('waLink');
-    w.href = waUrl('Olá, Urso Motos! Vim pelo site.');
-    w.hidden = false;
+  // ---------- Moto que passa ao rolar ----------
+  const pass = $('.pass');
+  if (pass && 'IntersectionObserver' in window) {
+    new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { pass.classList.remove('go'); void pass.offsetWidth; pass.classList.add('go'); }
+    }), { threshold: 0.6 }).observe(pass);
   }
 
-  // Peças
+  // ---------- WhatsApp ----------
+  // Número configurado no painel; se vazio, usa o telefone da loja.
+  const waNum = (() => { const n = (db.settings.whatsapp || '1124032745').replace(/\D/g, ''); return n.startsWith('55') ? n : '55' + n; })();
+  const waUrl = (msg) => `https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`;
+  const w = $('#waLink'); w.href = waUrl('Olá, Urso Motos! Vim pelo site.'); w.hidden = false;
+
+  const toast = (m) => { const t = $('#toast'); t.textContent = m; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2000); };
+
+  // ---------- Carrinho (pedido) ----------
+  const CART_KEY = 'urso_motos_cart';
+  let cart = {};
+  try { cart = JSON.parse(localStorage.getItem(CART_KEY)) || {}; } catch (e) { cart = {}; }
+  const prod = (id) => db.products.find((p) => p.id === id);
+  Object.keys(cart).forEach((id) => { if (!prod(id)) delete cart[id]; });
+  const saveCart = () => { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {} renderCart(); };
+
+  function add(id, n = 1) {
+    const p = prod(id); if (!p) return;
+    cart[id] = Math.min((cart[id] || 0) + n, p.stock || 99);
+    saveCart(); toast(`${p.name} adicionada ao pedido`);
+    document.querySelectorAll('.fab, .nav__cart').forEach((el) => { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); });
+  }
+  function setQty(id, q) { if (q <= 0) delete cart[id]; else cart[id] = Math.min(q, prod(id)?.stock || 99); saveCart(); }
+
+  function renderCart() {
+    const ids = Object.keys(cart);
+    const count = ids.reduce((a, id) => a + cart[id], 0);
+    const total = ids.reduce((a, id) => a + cart[id] * (prod(id)?.price || 0), 0);
+    document.querySelectorAll('[data-count]').forEach((b) => { b.textContent = count; b.hidden = !count; });
+    $('#cartEmpty').hidden = ids.length > 0;
+    $('#orderForm').hidden = ids.length === 0;
+    $('#sendOrder').disabled = ids.length === 0;
+    $('#cartTotal').textContent = BRL(total);
+    $('#cartList').innerHTML = ids.map((id) => {
+      const p = prod(id);
+      return `<li class="ci">
+        <div class="ci__info"><b>${esc(p.name)}</b><small>${esc(p.code || p.category || '')} · ${BRL(p.price)} un.</small></div>
+        <div class="qty">
+          <button type="button" data-q="-1" data-id="${id}" aria-label="Diminuir">−</button>
+          <span>${cart[id]}</span>
+          <button type="button" data-q="1" data-id="${id}" aria-label="Aumentar">+</button>
+        </div>
+        <b class="ci__sub">${BRL(cart[id] * p.price)}</b>
+        <button type="button" class="ci__rm" data-rm="${id}" aria-label="Remover">✕</button>
+      </li>`;
+    }).join('');
+    document.querySelectorAll('.part').forEach((el) => el.classList.toggle('in-cart', !!cart[el.dataset.id]));
+  }
+
+  $('#cartList').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.rm) setQty(b.dataset.rm, 0);
+    else setQty(b.dataset.id, (cart[b.dataset.id] || 0) + Number(b.dataset.q));
+  });
+
+  const cartEl = $('#cart');
+  const openCart = () => { document.body.classList.add('cart-open'); cartEl.setAttribute('aria-hidden', 'false'); };
+  const closeCart = () => { document.body.classList.remove('cart-open'); cartEl.setAttribute('aria-hidden', 'true'); };
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-open-cart]')) { e.preventDefault(); openCart(); }
+    else if (e.target.closest('[data-close-cart]')) { closeCart(); }
+  });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') closeCart(); });
+
+  // Etapas visuais do formulário
+  const steps = document.querySelectorAll('.steps span');
+  $('#orderForm').addEventListener('input', (e) => {
+    const f = e.currentTarget;
+    steps[1].classList.toggle('on', f.nome.value.trim().length > 0);
+    steps[2].classList.toggle('on', f.nome.value.trim().length > 0);
+  });
+
+  $('#orderForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.currentTarget, ids = Object.keys(cart);
+    if (!ids.length) return;
+    const total = ids.reduce((a, id) => a + cart[id] * prod(id).price, 0);
+    const lines = [
+      '🏍️ *PEDIDO DE PEÇAS — URSO MOTOS*', '',
+      ...ids.map((id) => { const p = prod(id); return `• ${cart[id]}x ${p.name}${p.code ? ` (${p.code})` : ''} — ${BRL(cart[id] * p.price)}`; }),
+      '', `*Total estimado:* ${BRL(total)}`, '',
+      `*Nome:* ${f.nome.value.trim()}`,
+      f.moto.value.trim() ? `*Moto:* ${f.moto.value.trim()}` : null,
+      `*Opção:* ${f.entrega.value}`,
+      f.obs.value.trim() ? `*Obs.:* ${f.obs.value.trim()}` : null,
+      '', 'Pode confirmar a disponibilidade? Obrigado!',
+    ].filter((l) => l !== null);
+    window.open(waUrl(lines.join('\n')), '_blank', 'noopener');
+  });
+
+  // ---------- Lista de peças ----------
   const list = db.products.filter((p) => p.visible && p.stock > 0);
   const cats = ['Todas', ...new Set(list.map((p) => p.category).filter(Boolean))];
   let cat = 'Todas', q = '';
-  const chips = document.getElementById('chips');
+  const chips = $('#chips');
   chips.innerHTML = cats.map((c) => `<button class="chip${c === cat ? ' on' : ''}" data-c="${esc(c)}">${esc(c)}</button>`).join('');
   chips.addEventListener('click', (e) => {
     const b = e.target.closest('.chip'); if (!b) return;
-    cat = b.dataset.c;
-    chips.querySelectorAll('.chip').forEach((x) => x.classList.toggle('on', x === b));
-    render();
+    cat = b.dataset.c; chips.querySelectorAll('.chip').forEach((x) => x.classList.toggle('on', x === b)); render();
   });
-  document.getElementById('q').addEventListener('input', (e) => { q = e.target.value.toLowerCase(); render(); });
+  $('#q').addEventListener('input', (e) => { q = e.target.value.toLowerCase(); render(); });
+
+  $('#parts').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-add]'); if (!b) return;
+    add(b.dataset.add);
+  });
 
   function render() {
     const items = list.filter((p) => (cat === 'Todas' || p.category === cat) &&
       (!q || (p.name + ' ' + p.code + ' ' + p.category).toLowerCase().includes(q)));
-    document.getElementById('partsEmpty').hidden = items.length > 0;
-    document.getElementById('parts').innerHTML = items.map((p) => {
-      const cta = wa
-        ? `<a class="btn btn--sm btn--red" target="_blank" rel="noopener" href="${waUrl(`Olá! Tenho interesse na peça: ${p.name} (${p.code || 's/ código'})`)}">Consultar</a>`
-        : `<a class="btn btn--sm btn--red" href="tel:+551124032745">Consultar</a>`;
-      return `<article class="part">
+    $('#partsEmpty').hidden = items.length > 0;
+    $('#parts').innerHTML = items.map((p, i) => `<article class="part" data-id="${p.id}" style="--d:${i * 60}ms">
         <div class="part__top"><span class="tag">${esc(p.category || 'Peça')}</span>${p.code ? `<span class="code">${esc(p.code)}</span>` : ''}</div>
         <h3>${esc(p.name)}</h3>
-        <div class="part__bot">
-          <div><small>a partir de</small><b>${BRL(p.price)}</b></div>
-          ${cta}
-        </div>
+        <div class="part__price"><small>a partir de</small><b>${BRL(p.price)}</b></div>
         <span class="stock ${p.stock <= 3 ? 'low' : ''}">${p.stock <= 3 ? 'Últimas unidades' : 'Em estoque'}</span>
-      </article>`;
-    }).join('');
+        <div class="part__acts">
+          <button class="btn btn--sm btn--red" data-add="${p.id}"><span class="add-txt">+ Adicionar</span><span class="in-txt">✓ No pedido (+1)</span></button>
+          <a class="wa-btn" target="_blank" rel="noopener" title="Pedir pelo WhatsApp" aria-label="Pedir ${esc(p.name)} pelo WhatsApp"
+             href="${waUrl(`Olá, Urso Motos! Quero pedir:\n• 1x ${p.name}${p.code ? ` (${p.code})` : ''} — ${BRL(p.price)}\n\nTem disponível?`)}">
+            <svg viewBox="0 0 32 32" class="wa-ico"><use href="#wa"/></svg>
+          </a>
+        </div>
+      </article>`).join('');
+    renderCart();
   }
   render();
 })();

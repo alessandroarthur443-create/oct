@@ -27,6 +27,7 @@
       <a href="#pecas">Peças</a>
       <a href="#sobre">Sobre</a>
       <a href="#contato">Contato</a>
+      <a href="#" class="nav__cart" data-open-cart>Pedido <span class="badge" data-count>0</span></a>
       <a href="admin.html" class="nav__admin">Admin</a>
     </nav>
   </div>
@@ -60,6 +61,24 @@
           <circle cx="150" cy="150" r="10" fill="#e10600"/>
           <text x="150" y="215" text-anchor="middle" class="g-num">29</text>
           <text x="150" y="238" text-anchor="middle" class="g-lbl">ANOS NA ESTRADA</text>
+        </svg>
+      </div>
+    </div>
+    <div class="road" aria-hidden="true">
+      <div class="road__lane"></div>
+      <div class="road__rider">
+        <svg class="moto" viewBox="0 0 160 80" aria-hidden="true">
+          <g class="moto__speed"><line x1="-40" y1="30" x2="-6" y2="30"/><line x1="-60" y1="44" x2="-14" y2="44"/><line x1="-34" y1="58" x2="-4" y2="58"/></g>
+          <path class="moto__frame" d="M32 60L70 48M128 60L114 24"/>
+          <g class="moto__wheel" style="transform-origin:32px 60px"><circle cx="32" cy="60" r="16"/><path d="M32 46v28M18 60h28M22 50l20 20M42 50L22 70"/></g>
+          <g class="moto__wheel" style="transform-origin:128px 60px"><circle cx="128" cy="60" r="16"/><path d="M128 46v28M114 60h28M118 50l20 20M138 50l-20 20"/></g>
+          <rect class="moto__engine" x="68" y="40" width="26" height="14" rx="3"/>
+          <path class="moto__exhaust" d="M70 54H42"/>
+          <path class="moto__tail" d="M64 36L30 28l6-4 34 6z"/>
+          <path class="moto__body" d="M62 44l10-16 30-4 16-4 14 8-8 10-18 4-10 8H64z"/>
+          <path class="moto__rider" d="M68 28l24-14M92 14l18 10M70 30l16 8-8 12"/>
+          <circle class="moto__helmet" cx="100" cy="10" r="8"/>
+          <path class="moto__visor" d="M102 7h6v5h-5z"/>
         </svg>
       </div>
     </div>
@@ -120,7 +139,7 @@
       <header class="sec-head">
         <span class="sec-num">02</span>
         <h2>Peças disponíveis</h2>
-        <p>Estoque atualizado pela oficina. Consulte disponibilidade e instalação.</p>
+        <p>Monte seu pedido e envie direto pelo WhatsApp. Ou toque no <span class="wa-inline">ícone verde</span> para pedir uma peça na hora.</p>
       </header>
       <div class="filters">
         <input type="search" id="q" placeholder="Buscar peça…" aria-label="Buscar peça">
@@ -130,6 +149,23 @@
       <p class="empty" id="partsEmpty" hidden>Nenhuma peça encontrada. Ligue para consultar — temos mais itens na loja.</p>
     </div>
   </section>
+
+  <div class="pass" aria-hidden="true">
+    <div class="pass__line"></div>
+    <div class="pass__rider"><svg class="moto moto--red" viewBox="0 0 160 80" aria-hidden="true">
+          <g class="moto__speed"><line x1="-40" y1="30" x2="-6" y2="30"/><line x1="-60" y1="44" x2="-14" y2="44"/><line x1="-34" y1="58" x2="-4" y2="58"/></g>
+          <path class="moto__frame" d="M32 60L70 48M128 60L114 24"/>
+          <g class="moto__wheel" style="transform-origin:32px 60px"><circle cx="32" cy="60" r="16"/><path d="M32 46v28M18 60h28M22 50l20 20M42 50L22 70"/></g>
+          <g class="moto__wheel" style="transform-origin:128px 60px"><circle cx="128" cy="60" r="16"/><path d="M128 46v28M114 60h28M118 50l20 20M138 50l-20 20"/></g>
+          <rect class="moto__engine" x="68" y="40" width="26" height="14" rx="3"/>
+          <path class="moto__exhaust" d="M70 54H42"/>
+          <path class="moto__tail" d="M64 36L30 28l6-4 34 6z"/>
+          <path class="moto__body" d="M62 44l10-16 30-4 16-4 14 8-8 10-18 4-10 8H64z"/>
+          <path class="moto__rider" d="M68 28l24-14M92 14l18 10M70 30l16 8-8 12"/>
+          <circle class="moto__helmet" cx="100" cy="10" r="8"/>
+          <path class="moto__visor" d="M102 7h6v5h-5z"/>
+        </svg></div>
+  </div>
 
   <!-- SOBRE -->
   <section class="section" id="sobre">
@@ -177,6 +213,54 @@
     <a href="#top">Voltar ao topo ↑</a>
   </div>
 </footer>
+
+
+<!-- CARRINHO / PEDIDO -->
+<div class="cart-scrim" data-close-cart></div>
+<aside class="cart" id="cart" aria-label="Seu pedido" aria-hidden="true">
+  <header class="cart__head">
+    <div>
+      <span class="eyebrow">Pedido de peças</span>
+      <h2>Seu pedido</h2>
+    </div>
+    <button class="cart__x" data-close-cart aria-label="Fechar">✕</button>
+  </header>
+  <div class="cart__body">
+    <ul class="cart__list" id="cartList"></ul>
+    <div class="cart__empty" id="cartEmpty">
+      <div class="cart__emptyIco">🏍️</div>
+      <p>Seu pedido está vazio.</p>
+      <a href="#pecas" class="btn btn--ghost btn--sm" data-close-cart>Escolher peças</a>
+    </div>
+    <form class="cart__form" id="orderForm">
+      <div class="steps"><span class="on">1. Peças</span><span>2. Seus dados</span><span>3. WhatsApp</span></div>
+      <label>Seu nome <input name="nome" required placeholder="Como podemos te chamar?"></label>
+      <label>Moto / modelo / ano <input name="moto" placeholder="Ex.: Honda CG 160 Fan 2020"></label>
+      <div class="cart__opts">
+        <label class="opt"><input type="radio" name="entrega" value="Retirar na loja" checked><span>Retirar na loja</span></label>
+        <label class="opt"><input type="radio" name="entrega" value="Instalar na oficina"><span>Instalar na oficina</span></label>
+      </div>
+      <label>Observação <textarea name="obs" rows="2" placeholder="Cor, medida, urgência…"></textarea></label>
+    </form>
+  </div>
+  <footer class="cart__foot">
+    <div class="cart__total"><span>Total estimado</span><b id="cartTotal">R$ 0,00</b></div>
+    <button class="btn btn--wa" id="sendOrder" form="orderForm" type="submit">
+      <svg viewBox="0 0 32 32" class="wa-ico"><use href="#wa"/></svg> Enviar pedido no WhatsApp
+    </button>
+    <small class="muted">Valores sujeitos a confirmação de estoque pela oficina.</small>
+  </footer>
+</aside>
+
+<a class="fab" href="#" data-open-cart aria-label="Abrir pedido">
+  <svg viewBox="0 0 32 32" class="wa-ico"><use href="#wa"/></svg>
+  <span class="badge" data-count>0</span>
+</a>
+<div class="toast" id="toast"></div>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="wa" viewBox="0 0 32 32"><path fill="currentColor" d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8S23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.8-1.6l-.4-.3-3.8 1.2 1.2-3.7-.3-.4c-1.2-1.8-1.8-3.8-1.8-5.9C5.1 9.9 10 5.2 16 5.2s10.9 4.8 10.9 10.6S22 26.4 16 26.4zm6-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.6.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.6 4.9.8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></symbol>
+</svg>
 
 <script src="js/store.js"></script>
 <script src="js/site.js"></script>
