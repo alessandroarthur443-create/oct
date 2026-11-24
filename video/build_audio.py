@@ -7,19 +7,21 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(AQUI, "build")
 os.makedirs(OUT, exist_ok=True)
 SR = 44100
-VOZ = os.environ.get("VOZ", "mb-br1")
+VOZ = os.environ.get("VOZ", "cadu-medium")   # voz neural Piper (pasta vozes/)
 GAP = 0.22
 
 
 def tts(texto, caminho):
     raw = caminho + ".raw.wav"
-    subprocess.run(["espeak-ng", "-v", VOZ, "-s", "168", "-p", "52", texto, "-w", raw],
-                   check=True, capture_output=True)
+    modelo = os.path.join(AQUI, "vozes", f"vits-piper-pt_BR-{VOZ}", f"pt_BR-{VOZ}.onnx")
+    subprocess.run(["python3", "-m", "piper", "-m", modelo, "-f", raw, "--length-scale", "0.93",
+                    "--noise-scale", "0.6", "--noise-w-scale", "0.8"],
+                   input=texto.encode(), check=True, capture_output=True)
     # reamostra, corta silêncio das pontas e dá um leve brilho na voz
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", raw, "-af",
                     "silenceremove=start_periods=1:start_threshold=-45dB,"
                     "areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse,"
-                    "highpass=f=90,equalizer=f=3000:t=q:w=1:g=3,volume=1.6",
+                    "highpass=f=80,equalizer=f=180:t=q:w=1:g=2,equalizer=f=4000:t=q:w=1.5:g=2,acompressor=threshold=-18dB:ratio=3,volume=1.4",
                     "-ar", str(SR), "-ac", "1", caminho], check=True)
     os.remove(raw)
     with wave.open(caminho) as w:

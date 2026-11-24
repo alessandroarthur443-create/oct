@@ -1,2 +1,4 @@
 build/
 __pycache__/
+vozes/
+node_modules/
