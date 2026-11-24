@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden}
+body{font-family:'Montserrat',sans-serif;color:#fff;position:relative;
+  background:linear-gradient(150deg,#1d22ff 0%,#5b1dff 38%,#b316ff 66%,#ff2e8a 100%)}
+.blob{position:absolute;border-radius:50%;filter:blur(70px)}
+.b1{width:520px;height:520px;left:-160px;top:600px;background:#00e5ff;opacity:.55}
+.b2{width:480px;height:480px;right:-140px;top:-120px;background:#ffd400;opacity:.5}
+.b3{width:420px;height:420px;right:60px;bottom:120px;background:#ff2e8a;opacity:.6}
+/* concentric rings behind phone */
+.rings{position:absolute;left:600px;top:790px;width:0;height:0}
+.rings i{position:absolute;border:2px solid rgba(255,255,255,.16);border-radius:50%;transform:translate(-50%,-50%)}
+/* dotted texture */
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.14) 1.5px,transparent 1.6px);background-size:30px 30px;
+  mask-image:linear-gradient(180deg,transparent 0%,#000 30%,#000 60%,transparent 90%)}
+
+/* HEADLINE (left aligned, editorial) */
+.head{position:absolute;top:64px;left:70px;right:70px}
+.chip{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.4);
+  padding:10px 22px 10px 12px;border-radius:999px;font-size:22px;font-weight:700;letter-spacing:2px}
+.chip b{background:#FFE600;color:#2a0a6b;padding:6px 14px;border-radius:999px;font-size:18px;letter-spacing:2px}
+h1{margin-top:26px;text-transform:uppercase;font-weight:900;line-height:.9;letter-spacing:-3px}
+h1 .a{display:block;font-size:128px;color:#FFE600;text-shadow:0 8px 0 #2a0a6b}
+h1 .b{display:block;font-size:76px;margin-top:16px;letter-spacing:-2px}
+h1 .b span{background:#fff;color:#5b1dff;padding:0 18px 4px;border-radius:14px;box-shadow:8px 8px 0 #2a0a6b}
+h1 .c{display:block;font-size:76px;margin-top:14px;letter-spacing:-2px;color:#fff}
+h1 .c u{text-decoration:none;color:#00F5D4}
+
+/* 3D STAGE */
+.stage{position:absolute;left:0;top:470px;width:1080px;height:640px;perspective:1300px;perspective-origin:55% 40%}
+.world{position:absolute;inset:0;transform-style:preserve-3d}
+.phoneWrap{position:absolute;left:470px;top:20px;width:290px;height:590px;transform-style:preserve-3d;transform:rotateY(-24deg) rotateX(8deg) rotateZ(4deg)}
+.phone{position:absolute;inset:0;border-radius:52px;background:#0d0a1f;padding:14px;
+  box-shadow:0 0 0 3px #3a2f6b, 0 50px 90px rgba(10,0,50,.6), inset 0 0 0 2px #241b4a}
+.screen{width:100%;height:100%;border-radius:40px;overflow:hidden;position:relative;
+  background:linear-gradient(180deg,#ffffff 0%,#f1ecff 100%);color:#1b1040;padding:58px 24px 24px}
+.notch{position:absolute;top:14px;left:50%;width:96px;height:26px;margin-left:-48px;background:#0d0a1f;border-radius:20px}
+.scr-t{font-size:15px;font-weight:700;color:#7a6aa8;letter-spacing:1px}
+.scr-h{font-size:27px;font-weight:900;margin-top:6px;line-height:1.05}
+.check{width:120px;height:120px;border-radius:50%;margin:34px auto 20px;background:linear-gradient(135deg,#00e08a,#00b86b);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 14px rgba(0,224,138,.18),0 14px 30px rgba(0,180,100,.4)}
+.check svg{width:62px;height:62px}
+.scr-ok{text-align:center;font-size:24px;font-weight:900}
+.scr-s{text-align:center;font-size:15px;font-weight:600;color:#7a6aa8;margin-top:6px}
+.bar{height:12px;border-radius:8px;background:#e4dcff;margin-top:26px;overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#5b1dff,#ff2e8a)}
+.btn{margin-top:26px;height:56px;border-radius:16px;background:#5b1dff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
+
+/* floating notification cards (pop out of screen) */
+.note{position:absolute;display:flex;align-items:center;gap:14px;background:#fff;color:#1b1040;border-radius:22px;padding:16px 22px 16px 16px;
+  box-shadow:0 30px 60px rgba(20,0,70,.45)}
+.note .ni{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex:none}
+.note .ni svg{width:30px;height:30px}
+.note p{font-size:20px;font-weight:900;line-height:1.1}
+.note p span{display:block;font-size:15px;font-weight:600;color:#7a6aa8}
+.n1{left:200px;top:40px;transform:translateZ(160px) rotateY(-14deg) rotateZ(-3deg)}
+.n1 .ni{background:#00c97a}
+.n2{left:675px;top:320px;transform:translateZ(200px) rotateY(-18deg) rotateZ(3deg)}
+.n2 .ni{background:#5b1dff}
+
+/* app tiles floating in depth (left column arc) */
+.app{position:absolute;border-radius:24%;display:flex;align-items:center;justify-content:center;font-weight:900;
+  box-shadow:0 26px 46px rgba(20,0,70,.5), inset 0 -6px 0 rgba(0,0,0,.18)}
+.app:after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.4),rgba(255,255,255,0) 50%)}
+.u{left:105px;top:215px;width:160px;height:160px;background:#000;color:#fff;font-size:52px;letter-spacing:-2px;transform:translateZ(120px) rotateY(24deg) rotateX(-6deg)}
+.n99{left:285px;top:320px;width:150px;height:150px;background:#FFDD00;color:#111;font-size:80px;letter-spacing:-4px;transform:translateZ(40px) rotateY(20deg) rotateX(6deg)}
+.id{left:120px;top:425px;width:150px;height:150px;background:#C1F11D;color:#141414;font-size:32px;letter-spacing:-1px;transform:translateZ(80px) rotateY(26deg) rotateX(8deg)}
+.ifd{left:850px;top:110px;width:150px;height:150px;background:#EA1D2C;color:#fff;font-size:42px;letter-spacing:-1px;transform:translateZ(60px) rotateY(-26deg) rotateX(-4deg)}
+
+/* BOTTOM */
+.perks{position:absolute;left:70px;right:70px;top:1110px;display:flex;justify-content:space-between}
+.perks div{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800}
+.perks svg{width:30px;height:30px;flex:none}
+.cta{position:absolute;left:70px;right:70px;bottom:52px;height:112px;border-radius:30px;background:#FFE600;color:#2a0a6b;
+  display:flex;align-items:center;justify-content:space-between;padding:0 16px 0 48px;
+  box-shadow:10px 10px 0 #2a0a6b}
+.cta b{font-size:46px;font-weight:900;text-transform:uppercase;letter-spacing:.5px}
+.cta .go{width:80px;height:80px;border-radius:22px;background:#2a0a6b;display:flex;align-items:center;justify-content:center}
+.cta .go svg{width:40px;height:40px}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="dots"></div>
+<div class="rings"><i style="width:520px;height:520px"></i><i style="width:740px;height:740px"></i><i style="width:960px;height:960px"></i></div>
+
+<div class="head">
+  <div class="chip"><b>NOVO</b>CRÉDITO SOB MEDIDA</div>
+  <h1>
+    <span class="a">Empréstimo</span>
+    <span class="b"><span>para motoristas</span></span>
+    <span class="c">de <u>aplicativo</u></span>
+  </h1>
+</div>
+
+<div class="stage"><div class="world">
+  <div class="app u">Uber</div>
+  <div class="app n99">99</div>
+  <div class="app id">inDrive</div>
+  <div class="app ifd">iFood</div>
+
+  <div class="phoneWrap">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="scr-t">SEU CRÉDITO</div>
+      <div class="scr-h">Olá, motorista!</div>
+      <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="scr-ok">Crédito aprovado!</div>
+      <div class="scr-s">Análise concluída</div>
+      <div class="bar"><i></i></div>
+      <div class="btn">Receber via PIX</div>
+    </div></div>
+  </div>
+
+  <div class="note n1"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><circle cx="12" cy="12.5" r="2.6"/></svg></span><p>PIX recebido<span>Dinheiro na sua conta</span></p></div>
+  <div class="note n2"><span class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span><p>Aprovação rápida<span>100% online</span></p></div>
+</div></div>
+
+<div class="perks">
+  <div><svg viewBox="0 0 24 24" fill="none" stroke="#FFE600" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Sem burocracia</div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke="#FFE600" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Parcelas flexíveis</div>
+  <div><svg viewBox="0 0 24 24" fill="none" stroke="#FFE600" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Dinheiro via PIX</div>
+</div>
+
+<div class="cta"><b>Simule agora</b>
+  <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="#FFE600" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</div>
+</body>
+</html>
