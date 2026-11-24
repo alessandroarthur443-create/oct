@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Painel Admin | Urso Motos</title>
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="admin">
+
+<!-- LOGIN -->
+<section class="login" id="login">
+  <form class="login__box" id="loginForm">
+    <img src="assets/logo.svg" alt="" width="64" height="64">
+    <h1>URSO<b>MOTOS</b></h1>
+    <p>Painel do administrador</p>
+    <input type="password" id="pwd" placeholder="Senha" autocomplete="current-password" required>
+    <button class="btn btn--red" type="submit">Entrar</button>
+    <small id="loginErr" class="err" hidden>Senha incorreta.</small>
+    <a href="index.html" class="muted">← Voltar ao site</a>
+  </form>
+</section>
+
+<!-- APP -->
+<div class="app" id="app" hidden>
+  <aside class="side">
+    <a href="index.html" class="brand"><img src="assets/logo.svg" alt="" width="34" height="34"><span>URSO<b>MOTOS</b></span></a>
+    <nav class="side__nav">
+      <button data-tab="dash" class="on">Visão geral</button>
+      <button data-tab="move">Entrada / Venda</button>
+      <button data-tab="prod">Peças</button>
+      <button data-tab="hist">Histórico</button>
+      <button data-tab="cfg">Configurações</button>
+    </nav>
+    <button class="btn btn--ghost btn--sm" id="logout">Sair</button>
+  </aside>
+
+  <main class="panel">
+    <!-- DASHBOARD -->
+    <section class="tab" id="tab-dash">
+      <h2>Visão geral <small id="monthLbl"></small></h2>
+      <div class="kpis">
+        <div class="kpi"><span>Itens em estoque</span><b id="kStock">0</b></div>
+        <div class="kpi"><span>Peças que entraram (mês)</span><b id="kIn">0</b></div>
+        <div class="kpi"><span>Peças vendidas (mês)</span><b id="kOut">0</b></div>
+        <div class="kpi kpi--red"><span>Faturamento (mês)</span><b id="kRev">R$ 0</b></div>
+      </div>
+      <div class="two">
+        <div class="box">
+          <h3>Estoque baixo</h3>
+          <table class="tbl"><thead><tr><th>Peça</th><th>Qtd</th></tr></thead><tbody id="lowList"></tbody></table>
+        </div>
+        <div class="box">
+          <h3>Últimas movimentações</h3>
+          <table class="tbl"><thead><tr><th>Data</th><th>Tipo</th><th>Peça</th><th>Qtd</th></tr></thead><tbody id="lastMoves"></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOVIMENTAÇÃO -->
+    <section class="tab" id="tab-move" hidden>
+      <h2>Registrar entrada ou venda</h2>
+      <form class="box form" id="moveForm">
+        <div class="seg">
+          <label><input type="radio" name="type" value="in" checked><span>Entrada (peça que chegou)</span></label>
+          <label><input type="radio" name="type" value="out"><span>Venda (peça que saiu)</span></label>
+        </div>
+        <label>Peça
+          <select name="productId" id="moveProduct" required></select>
+        </label>
+        <div class="row">
+          <label>Quantidade <input type="number" name="qty" min="1" value="1" required></label>
+          <label><span id="unitLbl">Custo unitário (R$)</span> <input type="number" name="unit" min="0" step="0.01" required></label>
+          <label>Data <input type="date" name="date" required></label>
+        </div>
+        <label>Observação <input type="text" name="note" placeholder="Ex.: fornecedor, cliente, placa da moto…"></label>
+        <div class="form__foot">
+          <span class="muted" id="moveInfo"></span>
+          <button class="btn btn--red" type="submit">Registrar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- PRODUTOS -->
+    <section class="tab" id="tab-prod" hidden>
+      <h2>Peças cadastradas</h2>
+      <form class="box form" id="prodForm">
+        <input type="hidden" name="id">
+        <div class="row">
+          <label class="grow">Nome da peça <input name="name" required></label>
+          <label>Código <input name="code"></label>
+        </div>
+        <div class="row">
+          <label>Categoria <input name="category" list="catList" placeholder="Ex.: Freios"></label>
+          <label>Preço de venda (R$) <input type="number" name="price" min="0" step="0.01" required></label>
+          <label class="check"><input type="checkbox" name="visible" checked> Mostrar no site</label>
+        </div>
+        <datalist id="catList"></datalist>
+        <div class="form__foot">
+          <button type="button" class="btn btn--ghost btn--sm" id="prodCancel" hidden>Cancelar edição</button>
+          <button class="btn btn--red" type="submit" id="prodSubmit">Cadastrar peça</button>
+        </div>
+      </form>
+      <div class="box">
+        <input type="search" id="prodQ" placeholder="Buscar…" class="search">
+        <div class="tbl-wrap">
+          <table class="tbl"><thead><tr><th>Peça</th><th>Código</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Site</th><th></th></tr></thead><tbody id="prodList"></tbody></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- HISTÓRICO -->
+    <section class="tab" id="tab-hist" hidden>
+      <h2>Histórico de movimentações</h2>
+      <div class="box">
+        <div class="row filters-row">
+          <label>Tipo
+            <select id="hType"><option value="">Todos</option><option value="in">Entradas</option><option value="out">Vendas</option></select>
+          </label>
+          <label>De <input type="date" id="hFrom"></label>
+          <label>Até <input type="date" id="hTo"></label>
+          <button class="btn btn--ghost btn--sm" id="csv">Exportar CSV</button>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl"><thead><tr><th>Data</th><th>Tipo</th><th>Peça</th><th>Qtd</th><th>Unit.</th><th>Total</th><th>Obs.</th><th></th></tr></thead><tbody id="histList"></tbody></table>
+        </div>
+        <p class="sum" id="histSum"></p>
+      </div>
+    </section>
+
+    <!-- CONFIG -->
+    <section class="tab" id="tab-cfg" hidden>
+      <h2>Configurações</h2>
+      <form class="box form" id="cfgForm">
+        <label>WhatsApp da loja (com DDD) <input name="whatsapp" placeholder="11 99999-9999"></label>
+        <label>Nova senha do painel <input type="password" name="password" placeholder="Deixe em branco para manter" autocomplete="new-password"></label>
+        <div class="form__foot"><button class="btn btn--red">Salvar</button></div>
+      </form>
+      <div class="box">
+        <h3>Backup dos dados</h3>
+        <p class="muted">Os dados ficam salvos neste navegador. Exporte um backup com frequência e importe-o para usar em outro computador.</p>
+        <div class="row">
+          <button class="btn btn--ghost btn--sm" id="exp">Exportar backup</button>
+          <label class="btn btn--ghost btn--sm">Importar backup<input type="file" id="imp" accept="application/json" hidden></label>
+          <button class="btn btn--ghost btn--sm danger" id="wipe">Apagar tudo</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/store.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

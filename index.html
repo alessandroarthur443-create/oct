@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Urso Motos | Oficina e Peças em Guarulhos</title>
+  <meta name="description" content="Urso Motos — oficina de motos, peças e serviços com mecânica especializada desde 1997 em Guarulhos, SP.">
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="nav" id="top">
+  <div class="wrap nav__in">
+    <a href="#top" class="brand">
+      <img src="assets/logo.svg" alt="" width="40" height="40">
+      <span>URSO<b>MOTOS</b></span>
+    </a>
+    <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__links">
+      <a href="#servicos">Serviços</a>
+      <a href="#pecas">Peças</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+      <a href="admin.html" class="nav__admin">Admin</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__stripes" aria-hidden="true"></div>
+    <div class="wrap hero__in">
+      <div class="hero__text">
+        <p class="eyebrow"><span class="dot"></span> Oficina especializada · Desde 1997</p>
+        <h1>Força de urso<br>no <em>cuidado</em><br>da sua moto.</h1>
+        <p class="lead">Mecânica especializada, peças e serviços para manter sua moto rodando com segurança e desempenho em Guarulhos.</p>
+        <div class="hero__cta">
+          <a href="tel:+551124032745" class="btn btn--red">Ligar (11) 2403-2745</a>
+          <a href="#pecas" class="btn btn--ghost">Ver peças</a>
+        </div>
+      </div>
+      <div class="hero__gauge" aria-hidden="true">
+        <svg viewBox="0 0 300 300">
+          <defs>
+            <linearGradient id="g" x1="0" x2="1">
+              <stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#e10600"/>
+            </linearGradient>
+          </defs>
+          <circle cx="150" cy="150" r="130" class="g-track"/>
+          <circle cx="150" cy="150" r="130" class="g-fill" stroke="url(#g)"/>
+          <g class="g-ticks"></g>
+          <line x1="150" y1="150" x2="150" y2="45" class="g-needle"/>
+          <circle cx="150" cy="150" r="10" fill="#e10600"/>
+          <text x="150" y="215" text-anchor="middle" class="g-num">29</text>
+          <text x="150" y="238" text-anchor="middle" class="g-lbl">ANOS NA ESTRADA</text>
+        </svg>
+      </div>
+    </div>
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>Troca de óleo</span><span>Revisão completa</span><span>Freios</span><span>Kit relação</span><span>Elétrica</span><span>Suspensão</span><span>Motor</span><span>Peças</span>
+        <span>Troca de óleo</span><span>Revisão completa</span><span>Freios</span><span>Kit relação</span><span>Elétrica</span><span>Suspensão</span><span>Motor</span><span>Peças</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section" id="servicos">
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="sec-num">01</span>
+        <h2>Serviços</h2>
+        <p>Do básico à retífica: diagnóstico honesto e mão de obra especializada.</p>
+      </header>
+      <div class="grid services">
+        <article class="card">
+          <div class="card__ico"><svg viewBox="0 0 24 24"><path d="M12 2s6 7 6 12a6 6 0 01-12 0c0-5 6-12 6-12z"/></svg></div>
+          <h3>Troca de óleo</h3>
+          <p>Óleos de 10W30 a 20W50 conforme o manual da sua moto, com troca de filtro.</p>
+        </article>
+        <article class="card">
+          <div class="card__ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <h3>Freios</h3>
+          <p>Pastilhas, lonas, discos e fluido. Segurança em primeiro lugar.</p>
+        </article>
+        <article class="card">
+          <div class="card__ico"><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12l4-4M4 12l4 4M20 12l-4-4M20 12l-4 4"/></svg></div>
+          <h3>Transmissão</h3>
+          <p>Kit relação, embreagem e regulagem para rodar macio e sem trancos.</p>
+        </article>
+        <article class="card">
+          <div class="card__ico"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></svg></div>
+          <h3>Elétrica</h3>
+          <p>Bateria, velas, chicote, iluminação e partida.</p>
+        </article>
+        <article class="card">
+          <div class="card__ico"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div>
+          <h3>Motor</h3>
+          <p>Diagnóstico, regulagem, carburação/injeção e retífica.</p>
+        </article>
+        <article class="card">
+          <div class="card__ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2h9"/></svg></div>
+          <h3>Revisão completa</h3>
+          <p>Check-up geral antes de viagem ou para o dia a dia de trabalho.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PEÇAS -->
+  <section class="section section--dark" id="pecas">
+    <div class="wrap">
+      <header class="sec-head">
+        <span class="sec-num">02</span>
+        <h2>Peças disponíveis</h2>
+        <p>Estoque atualizado pela oficina. Consulte disponibilidade e instalação.</p>
+      </header>
+      <div class="filters">
+        <input type="search" id="q" placeholder="Buscar peça…" aria-label="Buscar peça">
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="grid parts" id="parts"></div>
+      <p class="empty" id="partsEmpty" hidden>Nenhuma peça encontrada. Ligue para consultar — temos mais itens na loja.</p>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section" id="sobre">
+    <div class="wrap about">
+      <div class="about__big" aria-hidden="true">1997</div>
+      <div>
+        <header class="sec-head sec-head--left">
+          <span class="sec-num">03</span>
+          <h2>Sobre a Urso</h2>
+        </header>
+        <p>A <strong>Urso Motos</strong> é oficina de peças e serviços com mecânica especializada em motos, atendendo motociclistas de Guarulhos desde 1997. Motoboys, quem usa a moto para trabalhar e quem roda por paixão encontram aqui atendimento direto, preço justo e serviço bem feito.</p>
+        <ul class="stats">
+          <li><b>+29</b><span>anos de oficina</span></li>
+          <li><b>100%</b><span>foco em motos</span></li>
+          <li><b>1</b><span>endereço de confiança</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section section--red" id="contato">
+    <div class="wrap contact">
+      <div>
+        <h2>Traga sua moto.</h2>
+        <p>Rua Doutor Vitório Martins, 30 — Cidade Martins<br>Guarulhos · SP · CEP 07132-160</p>
+        <div class="contact__list">
+          <a href="tel:+551124032745"><span>Telefone</span>(11) 2403-2745</a>
+          <a href="mailto:urso.moto@gmail.com"><span>E-mail</span>urso.moto@gmail.com</a>
+          <a href="https://www.instagram.com/urso_motos/" target="_blank" rel="noopener"><span>Instagram</span>@urso_motos</a>
+          <a id="waLink" href="#" target="_blank" rel="noopener" hidden><span>WhatsApp</span>Chamar agora</a>
+        </div>
+      </div>
+      <div class="map">
+        <iframe title="Mapa Urso Motos" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Rua+Doutor+Vit%C3%B3rio+Martins,+30,+Guarulhos+-+SP&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <span>© <span id="yr"></span> Urso Motos · Eduardo Clemente Comércio e Reparação de Motos · CNPJ 14.374.412/0001-04</span>
+    <a href="#top">Voltar ao topo ↑</a>
+  </div>
+</footer>
+
+<script src="js/store.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
