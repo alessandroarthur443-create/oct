@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden}
+body{font-family:'Montserrat',sans-serif;color:#fff;position:relative;
+  background:
+    radial-gradient(ellipse at 50% 62%, rgba(0,255,163,.35) 0, rgba(0,255,163,0) 45%),
+    radial-gradient(circle at 0% 0%, rgba(255,0,153,.55) 0, rgba(255,0,153,0) 40%),
+    radial-gradient(circle at 100% 100%, rgba(255,200,0,.45) 0, rgba(255,200,0,0) 40%),
+    linear-gradient(180deg,#0a0f2c 0%,#111a4a 55%,#0a0f2c 100%)}
+/* speed lines */
+.lines{position:absolute;inset:0;overflow:hidden}
+.lines span{position:absolute;height:6px;border-radius:6px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5));transform:rotate(-12deg)}
+/* top banner */
+.top{position:absolute;top:0;left:0;right:0;height:470px;
+  background:linear-gradient(120deg,#FF0099 0%,#FF3D3D 45%,#FFB300 100%);
+  clip-path:polygon(0 0,100% 0,100% 82%,0 100%)}
+.top-inner{position:absolute;top:60px;left:60px;right:60px;text-align:center}
+.kicker{display:inline-block;background:#0a0f2c;color:#FFE600;font-weight:800;font-size:26px;letter-spacing:4px;
+  padding:12px 28px;border-radius:12px;transform:rotate(-2deg)}
+h1{margin-top:22px;font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-1px}
+h1 .big{display:block;font-size:136px;color:#fff;text-shadow:0 7px 0 #0a0f2c,0 16px 34px rgba(0,0,0,.35)}
+h1 .small{display:block;margin-top:14px;font-size:60px;color:#0a0f2c}
+h1 .small em{font-style:normal;color:#fff;background:#0a0f2c;padding:2px 16px 6px;border-radius:12px}
+.sub{position:absolute;top:500px;left:60px;right:60px;text-align:center;font-size:34px;font-weight:700}
+.sub b{color:#00FFA3}
+
+/* 3D fan */
+.stage{position:absolute;top:575px;left:0;right:0;height:400px;perspective:1300px;display:flex;justify-content:center;align-items:center}
+.scene{position:relative;width:960px;height:360px;transform-style:preserve-3d;transform:rotateX(12deg)}
+.app{position:absolute;top:70px;width:200px;height:200px;border-radius:48px;display:flex;align-items:center;justify-content:center;font-weight:900;
+  box-shadow:0 30px 50px rgba(0,0,0,.55), inset 0 -8px 0 rgba(0,0,0,.2), inset 0 6px 0 rgba(255,255,255,.25)}
+.app:after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(140deg,rgba(255,255,255,.35),rgba(255,255,255,0) 45%)}
+.a1{left:0;background:#000;color:#fff;font-size:64px;letter-spacing:-2px;transform:rotateY(28deg) rotateZ(-6deg)}
+.a2{left:252px;top:50px;background:#FFDD00;color:#111;font-size:110px;letter-spacing:-6px;transform:rotateY(14deg) rotateZ(-3deg) translateZ(20px)}
+.a3{right:252px;top:50px;background:#C1F11D;color:#141414;font-size:42px;letter-spacing:-1.5px;transform:rotateY(-14deg) rotateZ(3deg) translateZ(20px)}
+.a4{right:0;background:#EA1D2C;color:#fff;font-size:56px;letter-spacing:-1px;transform:rotateY(-28deg) rotateZ(6deg)}
+.coin{position:absolute;left:50%;top:30px;margin-left:-140px;width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fff6a8 0%,#FFE600 30%,#FFB300 70%,#d98200 100%);
+  display:flex;align-items:center;justify-content:center;font-size:118px;font-weight:900;color:#7a3d00;
+  box-shadow:0 0 0 12px rgba(255,230,0,.25),0 0 80px rgba(255,200,0,.7),0 30px 50px rgba(0,0,0,.5), inset 0 -10px 0 rgba(0,0,0,.15);
+  transform:translateZ(80px);text-shadow:0 3px 0 rgba(255,255,255,.5)}
+.coin:before{content:"";position:absolute;inset:18px;border-radius:50%;border:5px dashed rgba(122,61,0,.35)}
+
+/* benefits */
+.benefits{position:absolute;top:968px;left:60px;right:60px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.b{display:flex;align-items:center;gap:18px;background:rgba(255,255,255,.08);border:2px solid rgba(0,255,163,.45);border-radius:22px;padding:14px 22px}
+.b .ic{width:54px;height:54px;flex:none;border-radius:16px;background:#00FFA3;display:flex;align-items:center;justify-content:center}
+.b .ic svg{width:32px;height:32px}
+.b p{font-size:28px;font-weight:800}
+
+.cta{position:absolute;left:60px;right:60px;bottom:46px;height:112px;border-radius:999px;
+  background:linear-gradient(90deg,#00FFA3,#00E5FF);color:#0a0f2c;display:flex;align-items:center;justify-content:center;gap:22px;
+  font-size:46px;font-weight:900;letter-spacing:1px;text-transform:uppercase;
+  box-shadow:0 10px 0 #008f6b,0 0 60px rgba(0,255,163,.5)}
+.cta .arrow{width:66px;height:66px;border-radius:50%;background:#0a0f2c;display:flex;align-items:center;justify-content:center}
+.cta .arrow svg{width:36px;height:36px}
+</style>
+</head>
+<body>
+<div class="lines">
+  <span style="left:-40px;top:905px;width:220px"></span>
+  <span style="right:-30px;top:640px;width:200px"></span>
+  <span style="left:40px;top:620px;width:140px;opacity:.5"></span>
+  <span style="right:40px;top:905px;width:150px;opacity:.5"></span>
+</div>
+
+<div class="top"></div>
+<div class="top-inner">
+  <span class="kicker">ATENÇÃO, MOTORISTA!</span>
+  <h1>
+    <span class="big">Empréstimo</span>
+    <span class="small">para <em>motoristas</em> de app</span>
+  </h1>
+</div>
+
+<p class="sub">Crédito rápido para quem <b>vive na estrada</b></p>
+
+<div class="stage">
+  <div class="scene">
+    <div class="app a1">Uber</div>
+    <div class="app a2">99</div>
+    <div class="app a3">inDrive</div>
+    <div class="app a4">iFood</div>
+  </div>
+</div>
+
+<div class="benefits">
+  <div class="b"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f2c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span><p>Aprovação rápida</p></div>
+  <div class="b"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f2c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><circle cx="12" cy="12.5" r="2.6"/></svg></span><p>Dinheiro via PIX</p></div>
+  <div class="b"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f2c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><p>Sem burocracia</p></div>
+  <div class="b"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#0a0f2c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><p>Parcelas flexíveis</p></div>
+</div>
+
+<div class="cta">Simule agora
+  <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="#00FFA3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</div>
+</body>
+</html>
