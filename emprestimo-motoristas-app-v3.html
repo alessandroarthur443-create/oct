@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden}
+body{font-family:'Montserrat',sans-serif;color:#fff;position:relative;
+  background:linear-gradient(180deg,#05020c 0%,#12052b 22%,#3a0a4f 34%,#9a1a55 41.5%,#05020c 100%)}
+/* horizon glow */
+.sun{position:absolute;left:50%;top:420px;width:900px;height:300px;margin-left:-450px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(255,170,0,.9) 0%,rgba(255,60,120,.55) 30%,rgba(255,60,120,0) 70%);filter:blur(10px)}
+.stars{position:absolute;inset:0 0 50% 0;
+  background-image:radial-gradient(1.5px 1.5px at 12% 22%,#fff8,transparent),radial-gradient(1.5px 1.5px at 78% 14%,#fff9,transparent),
+  radial-gradient(1px 1px at 40% 34%,#fff7,transparent),radial-gradient(1.5px 1.5px at 90% 38%,#fff6,transparent),
+  radial-gradient(1px 1px at 25% 42%,#fff6,transparent),radial-gradient(1px 1px at 63% 40%,#fff8,transparent)}
+/* city skyline silhouette */
+.city{position:absolute;left:0;right:0;top:480px;height:82px}
+
+/* ROAD */
+.ground{position:absolute;left:0;right:0;top:560px;bottom:0;background:linear-gradient(180deg,#2a0838 0%,#0c0420 35%,#05020c 100%)}
+.roadSvg{position:absolute;inset:0;width:1080px;height:1350px}
+
+/* HEADER */
+.head{position:absolute;top:58px;left:60px;right:60px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:18px;font-size:22px;font-weight:700;letter-spacing:7px;color:#FFD66B}
+.eyebrow:before,.eyebrow:after{content:"";width:70px;height:2px;background:linear-gradient(90deg,transparent,#FFD66B)}
+.eyebrow:after{transform:scaleX(-1)}
+h1{margin-top:20px;font-weight:900;text-transform:uppercase;letter-spacing:-2px;line-height:.9}
+.big{display:block;font-size:126px;padding:0 10px;
+  background:linear-gradient(180deg,#FFF7B0 0%,#FFD400 38%,#FF8A00 70%,#FF2E88 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 0 #4a0b3d) drop-shadow(0 18px 30px rgba(255,46,136,.45))}
+.line2{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:22px}
+.line2 .p{font-size:40px;font-weight:800;color:#fff;letter-spacing:2px}
+.line2 .m{font-size:56px;font-weight:900;color:#0b0418;background:linear-gradient(90deg,#00F5D4,#00E5FF);
+  padding:6px 22px 10px;border-radius:14px;letter-spacing:-1px;box-shadow:0 0 40px rgba(0,229,255,.5)}
+.line3{margin-top:14px;font-size:46px;font-weight:900;letter-spacing:10px;color:#fff;text-transform:uppercase}
+
+/* ROADSIDE APP SIGNS (3D) */
+.signs{position:absolute;inset:0;perspective:1000px;perspective-origin:50% 42%}
+.signWrap{position:absolute;inset:0;transform-style:preserve-3d}
+.sign{position:absolute;display:flex;flex-direction:column;align-items:center}
+.tile{border-radius:22%;display:flex;align-items:center;justify-content:center;font-weight:900;position:relative;
+  box-shadow:0 0 0 3px rgba(255,255,255,.18),0 25px 45px rgba(0,0,0,.6)}
+.tile:after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.38),rgba(255,255,255,0) 50%)}
+.pole{width:10px;background:linear-gradient(90deg,#555,#bbb,#555);border-radius:0 0 4px 4px}
+/* left near / right near / left far / right far */
+.s1{left:40px;top:640px;transform:rotateY(38deg)}
+.s1 .tile{width:220px;height:220px;background:#000;color:#fff;font-size:70px;letter-spacing:-2px}
+.s1 .pole{height:140px}
+.s2{right:40px;top:640px;transform:rotateY(-38deg)}
+.s2 .tile{width:220px;height:220px;background:#EA1D2C;color:#fff;font-size:60px;letter-spacing:-1px}
+.s2 .pole{height:140px}
+.s3{left:215px;top:452px;transform:rotateY(30deg)}
+.s3 .tile{width:130px;height:130px;background:#FFDD00;color:#111;font-size:72px;letter-spacing:-4px}
+.s3 .pole{height:60px;width:7px}
+.s4{right:215px;top:452px;transform:rotateY(-30deg)}
+.s4 .tile{width:130px;height:130px;background:#C1F11D;color:#141414;font-size:28px;letter-spacing:-1px}
+.s4 .pole{height:60px;width:7px}
+
+/* GLASS DASHBOARD */
+.dash{position:absolute;left:50px;right:50px;top:1030px;height:126px;border-radius:30px;
+  background:linear-gradient(180deg,rgba(40,18,70,.92),rgba(14,6,30,.95));
+  border:1.5px solid rgba(255,214,107,.45);backdrop-filter:blur(14px);
+  display:flex;align-items:center;justify-content:space-around;box-shadow:0 20px 50px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.35)}
+.d{display:flex;align-items:center;gap:14px}
+.d .ic{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle,#FFE680,#FFB300);box-shadow:0 0 22px rgba(255,190,0,.6)}
+.d .ic svg{width:28px;height:28px}
+.d p{font-size:24px;font-weight:800;line-height:1.1}
+.d p span{display:block;font-weight:600;font-size:19px;color:rgba(255,255,255,.7)}
+.sep{width:1.5px;height:66px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.4),transparent)}
+
+/* CTA */
+.cta{position:absolute;left:50px;right:50px;bottom:48px;height:116px;border-radius:999px;
+  background:linear-gradient(90deg,#FFE066 0%,#FFB300 50%,#FF7A00 100%);
+  display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 54px;
+  box-shadow:0 0 0 2px rgba(255,255,255,.5) inset,0 18px 50px rgba(255,140,0,.45)}
+.cta b{font-size:44px;font-weight:900;color:#1a0630;letter-spacing:1px;text-transform:uppercase}
+.cta small{display:block;font-size:20px;font-weight:700;color:#5a2a00;letter-spacing:1px;text-transform:none}
+.cta .go{width:88px;height:88px;border-radius:50%;background:#12052b;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 6px rgba(18,5,43,.18)}
+.cta .go svg{width:42px;height:42px}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<div class="sun"></div>
+<svg class="city" id="city" viewBox="0 0 1080 82" preserveAspectRatio="none"></svg>
+<div class="ground"></div>
+<svg class="roadSvg" id="road" viewBox="0 0 1080 1350"></svg>
+
+<div class="head">
+  <div class="eyebrow">CRÉDITO EXCLUSIVO</div>
+  <h1>
+    <span class="big">Empréstimo</span>
+    <span class="line2"><span class="p">PARA</span><span class="m">MOTORISTAS</span></span>
+    <span class="line3 " style="display:block">de aplicativo</span>
+  </h1>
+</div>
+
+<div class="signs"><div class="signWrap">
+  <div class="sign s3"><div class="tile">99</div><div class="pole"></div></div>
+  <div class="sign s4"><div class="tile">inDrive</div><div class="pole"></div></div>
+  <div class="sign s1"><div class="tile">Uber</div><div class="pole"></div></div>
+  <div class="sign s2"><div class="tile">iFood</div><div class="pole"></div></div>
+</div></div>
+
+<div class="dash">
+  <div class="d"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a0a3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></span><p>Aprovação<span>em minutos</span></p></div>
+  <div class="sep"></div>
+  <div class="d"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a0a3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><circle cx="12" cy="12.5" r="2.6"/></svg></span><p>Dinheiro<span>via PIX</span></p></div>
+  <div class="sep"></div>
+  <div class="d"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#2a0a3a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><p>Parcelas<span>flexíveis</span></p></div>
+</div>
+
+<div class="cta"><b>Simule agora<small>Sem burocracia, 100% online</small></b>
+  <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="#FFD400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</div>
+<script>
+(function(){
+ const svg=document.getElementById('road'),H=560,B=1350,cx=540;
+ const xl=y=>cx-(22+(y-H)/(B-H)*700), xr=y=>cx+(22+(y-H)/(B-H)*700);
+ let g='<defs><linearGradient id="asph" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b0b2e"/><stop offset="1" stop-color="#0b0614"/></linearGradient>'+
+ '<filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+ g+=`<polygon points="${xl(H)},${H} ${xr(H)},${H} ${xr(B)},${B} ${xl(B)},${B}" fill="url(#asph)"/>`;
+ g+=`<line x1="${xl(H)}" y1="${H}" x2="${xl(B)}" y2="${B}" stroke="#ff2bd6" stroke-width="7" filter="url(#glow)"/>`;
+ g+=`<line x1="${xr(H)}" y1="${H}" x2="${xr(B)}" y2="${B}" stroke="#00e5ff" stroke-width="7" filter="url(#glow)"/>`;
+ const segs=[[572,580],[592,604],[624,642],[672,700],[748,792],[868,940]];
+ for(const [a,b] of segs){const w=y=>2+(y-H)/(B-H)*26;
+   g+=`<polygon points="${cx-w(a)},${a} ${cx+w(a)},${a} ${cx+w(b)},${b} ${cx-w(b)},${b}" fill="#FFD400" filter="url(#glow)"/>`;}
+ svg.innerHTML=g;
+ let c='',x=0,i=0;const hs=[38,62,30,70,48,82,40,58,34,74,52,44,66,36,60,46,78,32,56,42];
+ while(x<1080){const w=34+(i*17)%38,h=hs[i%hs.length];c+=`<rect x="${x}" y="${82-h}" width="${w+1}" height="${h}" fill="#0b0319"/>`;
+  for(let wy=82-h+8;wy<76;wy+=14)for(let wx=x+7;wx<x+w-6;wx+=12)if((wx*7+wy*3+i)%5===0)c+=`<rect x="${wx}" y="${wy}" width="4" height="5" fill="#ffb84d" opacity=".7"/>`;
+  x+=w;i++;}
+ document.getElementById('city').innerHTML=c;
+})();
+</script>
+</body>
+</html>
