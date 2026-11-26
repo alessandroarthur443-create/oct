@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GetApp — Aplicativos Premium</title>
+  <meta name="description" content="GetApp: descubra, compare e baixe aplicativos selecionados com segurança.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navegação flutuante (vidro) -->
+  <header class="nav-wrap">
+    <nav class="nav glass" aria-label="Principal">
+      <a href="#topo" class="brand">
+        <span class="brand-mark">G</span>
+        <span class="brand-name">GetApp</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#destaques">Destaques</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#como-instalar">Como instalar</a></li>
+        <li><a href="#faq">Dúvidas</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="topo">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <span class="orb orb-1"></span><span class="orb orb-2"></span><span class="orb orb-3"></span>
+      </div>
+      <div class="container hero-inner">
+        <p class="eyebrow reveal">Curadoria de aplicativos · Atualizado diariamente</p>
+        <h1 class="reveal">Os melhores apps,<br><em>escolhidos a dedo.</em></h1>
+        <p class="lead reveal">Baixe com segurança, sempre na versão mais recente. Cada aplicativo é verificado antes de chegar até você.</p>
+
+        <form class="search reveal" id="heroSearch" role="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="heroInput" placeholder="Buscar aplicativos, jogos, ferramentas…" autocomplete="off" aria-label="Buscar aplicativos">
+          <button type="submit" class="btn btn-dark">Buscar</button>
+        </form>
+
+        <div class="hero-stats reveal">
+          <div><strong data-count="1200">0</strong><span>Aplicativos</span></div>
+          <div><strong data-count="4800000">0</strong><span>Downloads</span></div>
+          <div><strong>4,9</strong><span>Avaliação média</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Destaques -->
+    <section class="section" id="destaques">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Em destaque</p>
+            <h2>Seleção da semana</h2>
+          </div>
+          <div class="carousel-controls">
+            <button class="icon-btn" id="prevFeat" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+            <button class="icon-btn" id="nextFeat" aria-label="Próximo"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+          </div>
+        </div>
+        <div class="featured" id="featured"></div>
+      </div>
+    </section>
+
+    <!-- Catálogo -->
+    <section class="section section-alt" id="catalogo">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Catálogo</p>
+            <h2>Explore todos os apps</h2>
+          </div>
+          <label class="sort">
+            <span>Ordenar</span>
+            <select id="sortSelect">
+              <option value="popular">Mais populares</option>
+              <option value="rating">Melhor avaliados</option>
+              <option value="recent">Mais recentes</option>
+              <option value="name">Nome (A–Z)</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="toolbar">
+          <div class="chips" id="chips" role="tablist" aria-label="Categorias"></div>
+          <div class="mini-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input type="search" id="catalogInput" placeholder="Filtrar…" aria-label="Filtrar aplicativos">
+          </div>
+        </div>
+
+        <p class="result-count" id="resultCount" aria-live="polite"></p>
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty" hidden>
+          <p>Nenhum aplicativo encontrado.</p>
+          <button class="btn btn-outline" id="clearFilters">Limpar filtros</button>
+        </div>
+        <div class="load-more-wrap">
+          <button class="btn btn-outline" id="loadMore">Carregar mais</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Como instalar -->
+    <section class="section" id="como-instalar">
+      <div class="container">
+        <div class="section-head center">
+          <div>
+            <p class="eyebrow">Simples e seguro</p>
+            <h2>Instale em três passos</h2>
+          </div>
+        </div>
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step-num">01</span>
+            <h3>Escolha o app</h3>
+            <p>Use a busca ou navegue pelas categorias até encontrar o aplicativo ideal.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-num">02</span>
+            <h3>Faça o download</h3>
+            <p>Toque em “Baixar”. O arquivo é verificado e entregue na versão mais recente.</p>
+          </li>
+          <li class="step reveal">
+            <span class="step-num">03</span>
+            <h3>Instale e aproveite</h3>
+            <p>Abra o arquivo baixado, permita a instalação e pronto — seu app está pronto para uso.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Confiança -->
+    <section class="section section-alt">
+      <div class="container trust">
+        <div class="trust-item reveal">
+          <svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4.5 3.4 8.3 8 9 4.6-.7 8-4.5 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+          <h3>Verificação de segurança</h3>
+          <p>Todos os arquivos passam por análise antes de serem publicados.</p>
+        </div>
+        <div class="trust-item reveal">
+          <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>
+          <h3>Sempre atualizado</h3>
+          <p>Novas versões chegam ao catálogo assim que são lançadas.</p>
+        </div>
+        <div class="trust-item reveal">
+          <svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg>
+          <h3>Download rápido</h3>
+          <p>Servidores otimizados para baixar sem espera e sem anúncios invasivos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container narrow">
+        <div class="section-head center">
+          <div>
+            <p class="eyebrow">Dúvidas frequentes</p>
+            <h2>Perguntas e respostas</h2>
+          </div>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Os aplicativos são gratuitos?</summary>
+            <p>Sim. Todos os aplicativos do catálogo podem ser baixados gratuitamente. Alguns podem oferecer recursos pagos dentro do próprio app.</p>
+          </details>
+          <details>
+            <summary>É seguro baixar por aqui?</summary>
+            <p>Cada arquivo é verificado antes da publicação e conferido novamente a cada atualização.</p>
+          </details>
+          <details>
+            <summary>Como permito a instalação no Android?</summary>
+            <p>Ao abrir o arquivo, o Android pedirá para permitir a instalação desta fonte. Toque em “Configurações”, ative a opção e volte para concluir.</p>
+          </details>
+          <details>
+            <summary>Como sei que tenho a versão mais recente?</summary>
+            <p>A versão e a data de atualização aparecem nos detalhes de cada app. Baixar novamente sempre entrega a versão mais atual.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="section">
+      <div class="container">
+        <div class="newsletter reveal">
+          <div>
+            <h2>Receba os lançamentos primeiro</h2>
+            <p>Um e-mail por semana com novidades e atualizações. Sem spam.</p>
+          </div>
+          <form id="newsletterForm" class="newsletter-form">
+            <input type="email" required placeholder="seu@email.com" aria-label="Seu e-mail">
+            <button type="submit" class="btn btn-gold">Inscrever</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <a href="#topo" class="brand"><span class="brand-mark">G</span><span class="brand-name">GetApp</span></a>
+        <p class="muted">Aplicativos selecionados, entregues com cuidado.</p>
+      </div>
+      <nav class="footer-links" aria-label="Rodapé">
+        <a href="#destaques">Destaques</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#como-instalar">Como instalar</a>
+        <a href="#faq">Dúvidas</a>
+      </nav>
+      <p class="muted small">© <span id="year"></span> GetApp. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Botões flutuantes (vidro) -->
+  <div class="fab-stack">
+    <button class="fab glass" id="fabFav" aria-label="Meus favoritos">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.3-9A5.3 5.3 0 0 1 12 6a5.3 5.3 0 0 1 9.3 6c-2.3 4.6-9.3 9-9.3 9Z"/></svg>
+      <span class="fab-badge" id="favCount" hidden>0</span>
+    </button>
+    <button class="fab glass" id="fabTop" aria-label="Voltar ao topo">
+      <svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg>
+    </button>
+  </div>
+
+  <!-- Modal de detalhes -->
+  <div class="modal" id="modal" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close glass" data-close aria-label="Fechar">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Painel de favoritos -->
+  <aside class="drawer" id="drawer" hidden aria-label="Favoritos">
+    <div class="drawer-backdrop" data-close-drawer></div>
+    <div class="drawer-panel">
+      <div class="drawer-head">
+        <h3>Favoritos</h3>
+        <button class="icon-btn" data-close-drawer aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+      <div id="drawerList"></div>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
